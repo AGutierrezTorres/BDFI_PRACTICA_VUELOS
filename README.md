@@ -28,7 +28,7 @@ A parte se puede desplegar la version dockerizada en plataformas como:
 El modelo también se puede entrenar con:
 - [AirFlow](https://airflow.apache.org/docs/apache-airflow/stable/start.html)
 ## Hitos realizados
-De los hito propuestos en la [Practica_big_data](https://github.com/ging/practica_big_data_2019)
+De los hitos propuestos en la presentación de la [Practica_big_data](https://github.com/ging/practica_big_data_2019) se han realizado los siguientes:
 * *(4 puntos)* Lograr el funcionamiento de la práctica sin realizar modificaciones
 *	*(1 punto)* Ejecución del job de predicción con Spark Submit en vez de IntelliJ
 *	*(1 punto)* Dockerizar cada uno de los servicios que componen la arquitectura completa
