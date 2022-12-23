@@ -1,0 +1,41 @@
+# Instrucciones generales para la instalacion de docker
+
+sudo apt update
+sudo apt install curl
+# instalar el demonio de docker y el comando
+sudo dpkg --configure -a
+sudo apt install docker.io
+
+# configurar que en el inicio se levante el demonio siempre
+sudo systemctl enable docker
+
+# levantar el demonio 
+sudo service docker start
+
+# comprobar que el comando docker esta instalado
+docker --version
+
+# comprobar que el demonio de docker esta levantado
+sudo docker stats --no-stream
+
+# crear el grupo docker (que deberia estar ya creado)
+sudo groupadd docker
+
+# anyadirnos al grupo
+sudo usermod -aG docker upm
+
+# reiniciar la maquina virtual o bien re-loggearnos con el comando 
+sudo su - upm
+
+# comprobar que funciona todo correctamente
+docker run hello-world
+
+# para ver los contenedores
+docker stats --no-stream
+
+# instalar docker compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+# desde el directorio PRACTICA_BIG_DATA
+sudo docker-compose up
+
