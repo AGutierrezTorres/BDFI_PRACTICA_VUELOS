@@ -1,4 +1,4 @@
-Para la ejecución de la práctica es necesario una MV que use Ubuntu 20.04, configurada con teclado en español, 2 Cores y 4096M de Ram.
+Scripts de la práctica disenyados y probados en MV que usa Ubuntu 20.04, con usuario upm, configurada con teclado en español, 2 Cores y 4096M de Ram(escenario recomendado).
 
 Una vez preparado el escenario, es necesario seguir los pasos del script ModulosBasicos.sh. Previamente a su ejecución hay que añadir en bashrc los exports indicados en el mismo.
 
