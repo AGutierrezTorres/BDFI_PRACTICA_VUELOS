@@ -11,7 +11,7 @@ RUN tar -xzvf kafka_2.12-3.0.0.tgz
 #exponer puerto del servicio
 EXPOSE 2181
 
-copiar y ejecutar script de inicializacion de zookeeper
+#copiar y ejecutar script de inicializacion de zookeeper
 COPY dockers/zookeeper/zookeeper.sh /kafka_2.12-3.0.0/zookeeper.sh
 WORKDIR /kafka_2.12-3.0.0
 RUN chmod +x zookeeper.sh
