@@ -40,6 +40,7 @@ cd
 
 # importando en mongo
 echo ''
-echo 'importar distancias"'
+echo 'importar distancias'
 cd ~/practicas_big_data_2019
 ./practica_big_data_2019/resources/import_distances.sh
+echo 'Si no funciona el importar distancias hacer cat del import_distances.sh y ejecutar en /practica_big_data_2019,comprobar mongo'
