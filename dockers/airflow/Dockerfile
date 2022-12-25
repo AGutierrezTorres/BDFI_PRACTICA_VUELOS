@@ -32,7 +32,7 @@ COPY resources/airflow/setup.py ./dags
 RUN airflow db init
 RUN airflow db upgrade
 
-#copiar el script que crea el usuario y exponer los puertos
+#copiar y ejecutar el script que crea un usuario admin y exponer los puertos
 COPY dockers/airflow/airflow.sh airflow.sh
 ENV PROJECT_HOME=/practica_big_data_2019
 EXPOSE 9090 8793
