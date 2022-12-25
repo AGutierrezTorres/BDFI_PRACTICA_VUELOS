@@ -24,7 +24,7 @@ Es neceraria la instalación de cada componente incluido en los apartados de aqu
 - [Flask](https://flask.palletsprojects.com/en/2.2.x/)
 - [Docker](https://www.docker.com/)
 - A parte se puede desplegar la version dockerizada en plataformas como:[Google-Cloud](https://cloud.google.com/)
--El modelo también se puede entrenar con:[AirFlow](https://airflow.apache.org/docs/apache-airflow/stable/start.html)
+- El modelo también se puede entrenar con:[AirFlow](https://airflow.apache.org/docs/apache-airflow/stable/start.html)
 ## Hitos realizados
 De los hitos propuestos en la presentación de la [Practica_big_data](https://github.com/ging/practica_big_data_2019) se han realizado los siguientes:
 * *(4 puntos)* Lograr el funcionamiento de la práctica sin realizar modificaciones
