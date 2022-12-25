@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   kafka:
     image: kafka
     build:
@@ -17,7 +18,8 @@ services:
     depends_on:
       - zookeeper
     networks:
-      - bdfi
+      - net1
+      
   zookeeper:
     image: zookeeper
     build:
@@ -28,7 +30,8 @@ services:
     ports:
       - 2181:2181
     networks:
-      - bdfi
+      - net1
+      
   mongo:
     image: mongo
     hostname: mongo
@@ -40,38 +43,8 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - bdfi
-  master:
-    image: bitnami/spark:3.1.2
-    container_name: master
-    hostname: master
-    restart: always
-    ports:
-      - 8080:8080
-      - 7077:7077
-    environment:
-      SPARK_MODE: master
-    networks:
-      - bdfi
-    volumes:
-      - ./models:/models
-  worker:
-    image: bitnami/spark:3.1.2
-    restart: always
-    deploy:
-      replicas: 3
-    environment:
-      SPARK_MODE: worker
-      SPARK_MASTER_URL: spark://master:7077
-    depends_on:
-      - master
-    networks:
-      - bdfi
-    volumes:
-      - ./models:/models
-      - ./resources:/resources
-      - ./data:/practica_big_data_2019/data
-      - ./models:/practica_big_data_2019/models
+      - net1
+      
   web:
     image: web
     build:
@@ -85,7 +58,8 @@ services:
       - mongo
       - spark
     networks:
-      - bdfi
+      - net1
+      
   spark:
     image: spark
     build:
@@ -98,9 +72,43 @@ services:
       - master
       - kafka
     networks:
-      - bdfi
+      - net1
     volumes:
       - ./models:/models
+      
+    master:
+    image: bitnami/spark:3.1.2
+    container_name: master
+    hostname: master
+    restart: always
+    ports:
+      - 8080:8080
+      - 7077:7077
+    environment:
+      SPARK_MODE: master
+    networks:
+      - net1
+    volumes:
+      - ./models:/models
+      
+  worker:
+    image: bitnami/spark:3.1.2
+    restart: always
+    deploy:
+      replicas: 3
+    environment:
+      SPARK_MODE: worker
+      SPARK_MASTER_URL: spark://master:7077
+    depends_on:
+      - master
+    networks:
+      - net1
+    volumes:
+      - ./models:/models
+      - ./resources:/resources
+      - ./data:/practica_big_data_2019/data
+      - ./models:/practica_big_data_2019/models
+      
   airflow:
     image: airflow
     build:
@@ -113,9 +121,10 @@ services:
     depends_on:
       - master
     networks:
-      - bdfi
+      - net1
+
 networks:
-  bdfi:
+  net1:
 volumes:
   models:
   resources:
