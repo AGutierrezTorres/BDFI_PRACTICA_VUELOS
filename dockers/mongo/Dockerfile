@@ -1,7 +1,9 @@
 FROM mongo:4.4
 
-
+#exponer puerto por defecto de mongo
 EXPOSE 27017
+
+#copiar los ficheros y scripts necesarios
 RUN mkdir mongo 
 WORKDIR /mongo
 COPY resources/import_distances.sh import_distances.sh
@@ -9,9 +11,7 @@ RUN chmod +x import_distances.sh
 RUN mkdir data
 COPY data/origin_dest_distances.jsonl data/origin_dest_distances.jsonl 
 
-
+# copiar el script de inicializacion de mongo y ejecutarlo
 COPY dockers/mongo/mongo.sh mongo.sh
-
 RUN chmod +x mongo.sh
-
 CMD ["./mongo.sh"]
