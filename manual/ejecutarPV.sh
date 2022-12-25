@@ -34,9 +34,4 @@ echo ''
 echo '6. Lanzar el spark-submit'
 echo '+--- cd ~/practica_big_data_2019/flight_prediction/target/scala-2.12; $SPARK_HOME/bin/spark-submit --class es.upm.dit.ging.predictor.MakePrediction --master local --packages org.mongodb.spark:mongo-spark-connector_2.12:3.0.1,org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 flight_prediction_2.12-0.1.jar'
 
-# Ejecutar el import distances
-echo ''
-echo '7. Importar distancias'
-echo 'cd ~/practicas_big_data_2019'
-echo './resources/import_distances.sh'
 
