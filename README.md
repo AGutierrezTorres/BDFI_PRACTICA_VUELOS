@@ -48,6 +48,8 @@ De los hitos propuestos en la presentación de la [Practica_big_data](https://gi
 *	*(1 punto)* Desplegar el escenario completo en Google Cloud
 *	*(2 puntos)* Entrenar el modelo con Apache Airflow
 ## Instrucciones de despliegue
+
+En este apartado se detallan las distintas formas de despliegue
 ### Despliegue manual en local
 
 Para el desplieque manual se ha realizado una serie de scripts que facilitan el despliegue. Simplemente hay que mirar el conenido del fichero [instrucciones_manual](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/instrucciones_manual) y ejecutar en orden los siguientes scripts:
@@ -70,11 +72,23 @@ docker-compose up
 Esto levantará la aplicación web en http://localhost:5000/flights/delays/predict_kafka y spark en http://localhost:8080.
 ### Despliegue en Google Cloud
 
+Para ello es necesario tener una cuenta con creditos en [Google Cloud](https://cloud.google.com/gcp/?hl=es&utm_source=google&utm_medium=cpc&utm_campaign=emea-es-all-es-bkws-all-all-trial-e-gcp-1011340&utm_content=text-ad-none-any-DEV_c-CRE_593880918212-ADGP_Hybrid+%7C+BKWS+-+EXA+%7C+Txt+~+GCP+~+General%23v3-KWID_43700060384861663-aud-1643012500233:kwd-6458750523-userloc_1005491&utm_term=KW_google%20cloud-NET_g-PLAC_&gclid=CjwKCAiAqaWdBhAvEiwAGAQltlthDg-niFGso48ZK5BonpV-LOBv00EAIhiwxL8rlK-7TiAeLtvcUhoCZJYQAvD_BwE&gclsrc=aw.ds).
+
+A continuación se abre un terminal:
+
+![googleCloudShell](images/googleCloudShell.png)
+
+y se introducen los siguientes comandos:
 ```
 git clone https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS
 cd BDFI_PRACTICA_VUELOS
 docker-compose up
 ```
+Finalmente para tener una vista web hay que seleccionar el puerto correspondiente desde la interfaz y modificar la URL tal y como se muesta a continuación:
+![googleCloudPortSel](images/googleCloudPortSel.png)
+![googleCloudExa](images/googleCloudExa.png)
+
+
 ## Apache airflow
 
 Airflow es una plataforma que le permite crear y ejecutar flujos de trabajo. Un flujo de trabajo se representa como un DAG (un gráfico acíclico dirigido) y contiene piezas de trabajo individuales denominadas tareas, organizadas teniendo en cuenta las dependencias y los flujos de datos.
