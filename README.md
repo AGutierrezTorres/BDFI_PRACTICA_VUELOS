@@ -1,4 +1,5 @@
 # BDFI_PRACTICA_VUELOS
+
 Repositorio con la solucion implementada a la practica de vuelos de la asinatura de BDFI 2022
 
 ## Introducción
@@ -9,7 +10,17 @@ A continuación se muestra la arquitecura del sistema desarrollado:
 [<img src="images/video_course_cover.png">](http://datasyndrome.com/video)
 
 ## "Arquitectura Back End"
+
+Este se centrará en Spark, donde se entrenará un modelo con los datos recogidos del frontal para poder realizar las predicciones. Spark estará suscrito al tópico de Kafka para la predicción de retrasos, por lo que escuchará la cola, procesará la información del frontal y la almacenará en una base de datos Mongo.
+
+![Backend Architecture](images/back_end_realtime_architecture.png)
+
 ## "Arquitectura Front End"
+
+El usuario accederá a la URL donde se le presentarán los cuadros con la información relacionada con la predicción de los retrasos y formularios a rellenar. Una vez rellenado este formulario la información será enviada a la cola de mensajería en tiempo real Kafka, bajo un tópico, al servidor, donde se llevarán a cabo las labores del back-end. El último paso será el envío de esta información desde la base de datos de nuevo hacia el frontal para poder presentarla.
+
+![Front End Architecture](images/front_end_realtime_architecture.png)
+
 ## "Proceso de Funcionamiento"
 
 En este apartado se detalla en más en profundad el foncionamiento del sistema al completo:
@@ -22,6 +33,7 @@ En este apartado se detalla en más en profundad el foncionamiento del sistema a
 7. La ejecución del job se realiza por medio del fichero jar para Scala generado por medio de spark-submit.
 8. Se guardan las diversas predicciones en la base de datos de Mongo.
 9. Se realiza la consulta de los resultados de la prediccion a través del uso de polling que flask realiza sobre Mongo y se se muestran en el servidor web.
+
 ## "Componentes y herramientas utilizadas"
 
 Es neceraria la instalación de cada componente incluido en los apartados de aquitectura:
@@ -38,6 +50,7 @@ Es neceraria la instalación de cada componente incluido en los apartados de aqu
 - [Docker](https://www.docker.com/)
 - A parte se puede desplegar la version dockerizada en plataformas como: [Google-Cloud](https://cloud.google.com/)
 - El modelo también se puede entrenar con: [AirFlow](https://airflow.apache.org/docs/apache-airflow/stable/start.html)
+
 ## Hitos realizados
 
 De los hitos propuestos en la presentación de la [Practica_big_data](https://github.com/ging/practica_big_data_2019) se han realizado los siguientes:
@@ -47,9 +60,11 @@ De los hitos propuestos en la presentación de la [Practica_big_data](https://gi
 *	*(1 punto)* Desplegar el escenario completo usando docker-compose
 *	*(1 punto)* Desplegar el escenario completo en Google Cloud
 *	*(2 puntos)* Entrenar el modelo con Apache Airflow
+
 ## Instrucciones de despliegue
 
 En este apartado se detallan las distintas formas de despliegue.
+
 ### Despliegue manual en local
 
 Para el desplieque manual se ha realizado una serie de scripts que facilitan el despliegue. Simplemente hay que mirar el conenido del fichero [instrucciones_manual](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/instrucciones_manual) y ejecutar en orden los siguientes scripts:
@@ -57,6 +72,7 @@ Para el desplieque manual se ha realizado una serie de scripts que facilitan el 
 2. [ModulosPV.sh](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/ModulosPV.sh)
 3. [EntrenaYCompila.sh](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/EntrenaYCompila.sh)
 4. [ejecutarPV.sh](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/ejecutarPV.sh)
+
 ### Despliegue utilizando Docker/Docker-compose
 
 Para el despliegue de la aplicación utilizando docker-compose se deben seguir las indicaciones del fichero [instrucciones_docker+dockerCompose](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/instrucciones_docker%2BdockerCompose) para instalar docker y docker-compose. 
@@ -70,6 +86,7 @@ Finalmente, desde la carpeta `BDFI_PRACTICA_VUELOS`:
 docker-compose up
 ```
 Esto levantará la aplicación web en http://localhost:5000/flights/delays/predict_kafka y spark en http://localhost:8080.
+
 ### Despliegue en Google Cloud
 
 Para ello es necesario tener una cuenta con creditos en [Google Cloud](https://cloud.google.com/gcp/?hl=es&utm_source=google&utm_medium=cpc&utm_campaign=emea-es-all-es-bkws-all-all-trial-e-gcp-1011340&utm_content=text-ad-none-any-DEV_c-CRE_593880918212-ADGP_Hybrid+%7C+BKWS+-+EXA+%7C+Txt+~+GCP+~+General%23v3-KWID_43700060384861663-aud-1643012500233:kwd-6458750523-userloc_1005491&utm_term=KW_google%20cloud-NET_g-PLAC_&gclid=CjwKCAiAqaWdBhAvEiwAGAQltlthDg-niFGso48ZK5BonpV-LOBv00EAIhiwxL8rlK-7TiAeLtvcUhoCZJYQAvD_BwE&gclsrc=aw.ds).
@@ -103,6 +120,7 @@ Un DAG especifica las dependencias entre tareas, el orden en el que se ejecutan 
 - Un **servidor web**, que presenta una interfaz de usuario para inspeccionar, activar y depurar el comportamiento de los DAG y las tareas.
 - Una **carpeta de archivos DAG**, leída por el orquestador y el ejecutor (y cualquier trabajador que tenga el ejecutor).
 - Una **base de metadatos**, utilizada por el orquestador, el ejecutor y el servidor web para almacenar el estado.
+
 ### Entrenar el modelo con Apache Airflow (manual)
 
 - Instalar las depencias de Apache Airflow:
@@ -156,7 +174,9 @@ airflow dags trigger agile_data_science_batch_prediction_model_training
 ![Apache Airflow DAG success](images/airflow.jpeg)
 ### Entrenar el modelo con Apache Airflow (dockerizado)
 Consultar ficheros [Dockerfile](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/dockers/airflow/Dockerfile) y [airflow.sh](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/dockers/airflow/airflow.sh) alojados en `dockers/airflow`.
+
 ### Análisis del setup.py
+
 En este apartado se realiza un análisis del [setup.py](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/resources/airflow/setup.py) alojado en `resources/airflow/setup.py`:
 ```
 import sys, os, re
