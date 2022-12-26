@@ -9,15 +9,15 @@ A continuación se muestra la arquitecura del sistema desarrollado:
 
 [<img src="images/video_course_cover.png">](http://datasyndrome.com/video)
 
-## "Arquitectura Back End"
+## Arquitectura "Back End"
 
-Este se centrará en Spark, donde se entrenará un modelo con los datos recogidos del frontal para poder realizar las predicciones. Spark estará suscrito al tópico de Kafka para la predicción de retrasos, por lo que escuchará la cola, procesará la información del frontal y la almacenará en una base de datos Mongo.
+El siguiente diagrama de la arquitectura de back-end muestra cómo se entrena un modelo clasificador utilizando datos históricos (todos los vuelos desde 2015) registrados para predecir retrasos en los vuelos en batch mediante Spark. una vez listo, se guarda el modelo de predicción. A continuación, se lanza Zookeeper y una cola de Kafka. Usamos Spark Streaming para cargar el modelo clasificador y luego se escuchan las solicitudes de predicción en una cola de Kafka. Cuando llega una solicitud de predicción, Spark Streaming realiza la predicción y almacena el resultado en MongoDB, donde la aplicación web puede recogerlo.
 
 ![Backend Architecture](images/back_end_realtime_architecture.png)
 
-## "Arquitectura Front End"
+## Arquitectura "Front End"
 
-El usuario accederá a la URL donde se le presentarán los cuadros con la información relacionada con la predicción de los retrasos y formularios a rellenar. Una vez rellenado este formulario la información será enviada a la cola de mensajería en tiempo real Kafka, bajo un tópico, al servidor, donde se llevarán a cabo las labores del back-end. El último paso será el envío de esta información desde la base de datos de nuevo hacia el frontal para poder presentarla.
+El usuario accederá a la URL donde se le presentarán los cuadros con la información relacionada con la predicción de los retrasos y formularios a rellenar. Una vez rellenado este formulario la información será enviada a la cola de mensajería en tiempo real Kafka, bajo un tópico, al servidor, donde se llevarán a cabo las labores del back-end. El servidor completa algunos campos necesarios derivados de los del formulario como "día del año" y emite un mensaje de Kafka que contiene una solicitud de predicción.Spark Streaming está escuchando en una cola de Kafka para estas solicitudes y hace la predicción, almacenando el resultado en MongoDB. Una vez que los datos están disponibles en Mongo, el último paso será el envío de esta información desde la base de datos de nuevo hacia el frontal para poder presentarla:
 
 ![Front End Architecture](images/front_end_realtime_architecture.png)
 
