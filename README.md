@@ -49,7 +49,7 @@ De los hitos propuestos en la presentación de la [Practica_big_data](https://gi
 *	*(2 puntos)* Entrenar el modelo con Apache Airflow
 ## Instrucciones de despliegue
 
-En este apartado se detallan las distintas formas de despliegue
+En este apartado se detallan las distintas formas de despliegue.
 ### Despliegue manual en local
 
 Para el desplieque manual se ha realizado una serie de scripts que facilitan el despliegue. Simplemente hay que mirar el conenido del fichero [instrucciones_manual](https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS/blob/main/instrucciones_manual) y ejecutar en orden los siguientes scripts:
@@ -85,9 +85,9 @@ cd BDFI_PRACTICA_VUELOS
 docker-compose up
 ```
 Finalmente para tener una vista web hay que seleccionar el puerto correspondiente desde la interfaz y modificar la URL tal y como se muesta a continuación:
+
 ![googleCloudPortSel](images/googleCloudPortSel.png)
 ![googleCloudExa](images/googleCloudExa.png)
-
 
 ## Apache airflow
 
