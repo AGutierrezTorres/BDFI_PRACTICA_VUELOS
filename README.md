@@ -99,7 +99,7 @@ y se introducen los siguientes comandos:
 ```
 git clone https://github.com/AGutierrezTorres/BDFI_PRACTICA_VUELOS
 cd BDFI_PRACTICA_VUELOS
-docker-compose up
+sudo docker-compose up
 ```
 Finalmente para tener una vista web hay que seleccionar el puerto correspondiente desde la interfaz del cloud shell y modificar la URL tal y como se muesta a continuación:
 
