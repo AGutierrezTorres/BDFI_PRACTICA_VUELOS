@@ -13,7 +13,9 @@ PROJECT_HOME = os.getenv("PROJECT_HOME")
 #(3 en este caso).
 # Se indica desde la fecha por la que debe comenzar("2016-12-01").
 # Y,finalmente,con retry_delay se define cada cuanto tiempo se realizan los 
-#reintentos(5min en este caso).
+# reintentos(5min en este caso).
+# 'depends_on_past': False, significa que esta esta ejecucion del DAG no depende de que se hayan realizado
+# las tareas anteriores satisfactoriamente
 default_args = {
   'owner': 'airflow',
   'depends_on_past': False,
