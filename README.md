@@ -4,8 +4,8 @@ Repositorio con la solucion implementada a la practica de vuelos de la asinatura
 
 ## Introducción
 
-El objetivo de este proyecto de la asignatura de BDFI en el curso 2022-2023 es el de implementar un sistema que permite realizar predicciones de retraso de vuelos. Dicho sistema de predicción esta formado por una serie de módulos los cuales permiten realizar predicciones análiticas y en tiempo real a partir de una serie de trazas y asi poder mostrar el retraso del correspondiente vuelo.
-A continuación se muestra la arquitecura del sistema desarrollado:
+El objetivo de este proyecto de la asignatura de BDFI en el curso 2022-2023 es el de implementar un sistema que permite realizar predicciones de retraso de vuelos. Dicho sistema de predicción está formado por una serie de módulos los cuales permiten realizar predicciones analíticas y en tiempo real a partir de una serie de trazas y así poder mostrar el retraso del correspondiente vuelo. 
+A continuación, se muestra la arquitectura del sistema desarrollado:
 
 [<img src="images/video_course_cover.png">](http://datasyndrome.com/video)
 
@@ -17,22 +17,22 @@ El siguiente diagrama de la arquitectura de back-end muestra cómo se entrena un
 
 ## Arquitectura "Front End"
 
-El usuario accederá a la URL donde se le presentarán los cuadros con la información relacionada con la predicción de los retrasos y formularios a rellenar. Una vez rellenado este formulario la información será enviada a la cola de mensajería en tiempo real Kafka, bajo un tópico, al servidor, donde se llevarán a cabo las labores del back-end. El servidor completa algunos campos necesarios derivados de los del formulario como "día del año" y emite un mensaje de Kafka que contiene una solicitud de predicción.Spark Streaming está escuchando en una cola de Kafka para estas solicitudes y hace la predicción, almacenando el resultado en MongoDB. Una vez que los datos están disponibles en Mongo, el último paso será el envío de esta información desde la base de datos de nuevo hacia el frontal para poder presentarla:
+El usuario accederá a la URL donde se le presentarán los cuadros con la información relacionada con la predicción de los retrasos y formularios a rellenar. Una vez rellenado este formulario la información será enviada a la cola de mensajería en tiempo real Kafka, bajo un tópico, al servidor, donde se llevarán a cabo las labores del back-end. El servidor completa algunos campos necesarios derivados de los del formulario como "día del año" y emite un mensaje de Kafka que contiene una solicitud de predicción. Spark Streaming está escuchando en una cola de Kafka para estas solicitudes y hace la predicción, almacenando el resultado en MongoDB. Una vez que los datos están disponibles en Mongo, el último paso será el envío de esta información desde la base de datos de nuevo hacia el frontal para poder presentarla:
 
 ![Front End Architecture](images/front_end_realtime_architecture.png)
 
 ## "Proceso de Funcionamiento"
 
-En este apartado se detalla en más en profundad el foncionamiento del sistema al completo:
-1. Se descarga el dataset de los datos relacionados con los vuelos. Dicho dataset posee la información suficiente como para poder entrenar el modelo y predecir los retrasos. 
-2. Se entrena el modelo de Machine Learning a partir del dataset.
-3. Se despliega el job de prediccion de retrasos de los vuelos Spark,el cual realiza las predicciones mediante el modelo creado
-4. Introducción de los datos del vuelo a predecir en el frontal web y su posterior envio al servidor web de Flask por medio de la cola de mensajería Kafka especificando el tópico.
-5. Se entrena el modelo predictivo empleando el algoritmo RandomForest con los datos obtenidos.
-6. El job de Spark en el servidor realiza la predicción de los retrasos de los vuelos por medio de los datos del tópico al que se encuentra suscrito de Kafka.
-7. La ejecución del job se realiza por medio del fichero jar para Scala generado por medio de spark-submit.
-8. Se guardan las diversas predicciones en la base de datos de Mongo.
-9. Se realiza la consulta de los resultados de la prediccion a través del uso de polling que flask realiza sobre Mongo y se se muestran en el servidor web.
+En este apartado se detalla en más en profundad el funcionamiento del sistema al completo:
+1.	Se descarga el dataset de los datos relacionados con los vuelos. Dicho dataset posee la información suficiente como para poder entrenar el modelo y predecir los retrasos.
+2.	Se entrena el modelo de Machine Learning a partir del dataset.
+3.	Se despliega el job de predicción de retrasos de los vuelos Spark,el cual realiza las predicciones mediante el modelo creado
+4.	Introducción de los datos del vuelo a predecir en el frontal web y su posterior envío al servidor web de Flask por medio de la cola de mensajería Kafka especificando el tópico.
+5.	Se entrena el modelo predictivo empleando el algoritmo RandomForest con los datos obtenidos.
+6.	El job de Spark en el servidor realiza la predicción de los retrasos de los vuelos por medio de los datos del tópico al que se encuentra suscrito de Kafka.
+7.	La ejecución del job se realiza por medio del fichero jar para Scala generado por medio de spark-submit.
+8.	Se guardan las diversas predicciones en la base de datos de Mongo.
+9.	Se realiza la consulta de los resultados de la predicción a través del uso de polling que flask realiza sobre Mongo y se se muestran en el servidor web.
 
 ## "Componentes y herramientas utilizadas"
 
